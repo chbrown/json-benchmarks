@@ -17,9 +17,12 @@ var colors = {};
 
 var started = Date.now();
 
+var obj;
+
 splitter.on('data', function(chunk) {
   if (chunk) {
-    var obj = JSON.parse(chunk);
+    // eval('obj = ' + chunk); // eval is actually a lot slower (221s!)
+    obj = JSON.parse(chunk);
     if ('delete' in obj) {
       ndeletes++;
     }
@@ -54,5 +57,5 @@ splitter.on('end', function(chunk) {
   console.log('nlines = %d', nlines);
   console.log('ndeletes = %d', ndeletes);
   console.log('nentities = %d', nentities);
-  console.log('colors:', JSON.stringify(colors, null, 2));
+  // console.log('colors:', JSON.stringify(colors, null, 2));
 });
